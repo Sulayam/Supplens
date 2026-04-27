@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUPPLENS | Supply Chain Intelligence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #020817;
+            --surface: #0a1120;
+            --accent: #d4af37;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(212, 175, 55, 0.15);
+            /* New Type Stack: Clean, Authoritative, No-fluff */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.5;
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+        }
+
+        nav {
+            position: fixed; top: 0; width: 100%; height: 80px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 6%; z-index: 1000;
+            background: rgba(2, 8, 23, 0.9); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: var(--font-sans);
+        }
+
+        .story-container { position: relative; height: 400vh; }
+        .viewport { position: sticky; top: 0; height: 100vh; width: 100vw; overflow: hidden; }
+
+        .map-layer {
+            position: absolute; inset: 0;
+            background: url('hormuz.jpg') center/cover;
+            filter: grayscale(1) brightness(0.25) contrast(1.1);
+            z-index: 1;
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        .grid-overlay {
+            position: absolute; inset: 0;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 60px 60px; z-index: 2; opacity: 0.08;
+        }
+
+        .intel-module {
+            position: absolute; z-index: 10;
+            background: rgba(10, 17, 32, 0.95);
+            border: 1px solid var(--border);
+            padding: 45px; width: 90%; max-width: 480px;
+            backdrop-filter: blur(20px);
+            opacity: 0; transform: translateY(20px);
+            transition: 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .intel-module.active { opacity: 1; transform: translateY(0); }
+
+        .module-left { left: 6%; top: 25%; }
+        .module-right { right: 6%; top: 35%; border-left: 4px solid var(--accent); }
+
+        .meta-tag {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+            font-weight: 500;
+        }
+        h2 { font-weight: 700; font-size: 2.4rem; margin-bottom: 18px; color: #fff; letter-spacing: -0.03em; }
+        p { color: var(--text-muted); font-size: 1.1rem; font-weight: 400; line-height: 1.6; }
+
+        .hero {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; z-index: 20; padding: 0 10%;
+        }
+        .hero h1 { font-weight: 800; font-size: 3.8rem; margin-bottom: 24px; line-height: 1.05; letter-spacing: -0.04em; }
+        .hero p { max-width: 650px; font-size: 1.25rem; color: var(--text-muted); font-weight: 400; }
+
+        .cta-section {
+            position: relative; z-index: 100; background: var(--bg);
+            padding: 120px 6%; border-top: 1px solid var(--border);
+        }
+        .cta-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+        .form-card { background: var(--surface); padding: 50px; border: 1px solid var(--border); }
+        .field { margin-bottom: 25px; }
+        label { font-size: 0.65rem; color: var(--accent); text-transform: uppercase; font-family: var(--font-mono); letter-spacing: 0.1em; }
+
+        input {
+            width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border);
+            padding: 12px 0; color: #fff; font-size: 1rem; outline: none; transition: 0.3s;
+            font-family: var(--font-sans);
+        }
+        input:focus { border-color: var(--accent); }
+
+        .btn {
+            background: var(--accent); color: #000; padding: 20px 32px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+            border: none; cursor: pointer; width: 100%; transition: 0.3s;
+            font-size: 0.85rem;
+        }
+        .btn:hover { background: #fff; transform: translateY(-2px); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .cta-grid { grid-template-columns: 1fr; }
+            .intel-module { position: relative; left: 0; right: 0; margin: 20px auto; top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">SUPPLENS</a>
+        <div style="display: flex; gap: 30px; align-items: center;">
+            <a href="#inquire" class="btn" style="padding: 12px 24px; font-size: 0.7rem; width: auto;">Inquire</a>
+        </div>
+    </nav>
+
+    <div class="story-container">
+        <div class="viewport">
+            <div class="map-layer" id="map"></div>
+            <div class="grid-overlay"></div>
+
+            <div class="hero" id="hero">
+                <h1>Know your risks before<br>your shipments stop.</h1>
+                <p>Advanced monitoring against global sanctions and GCC shipping disruptions. Alerts delivered instantly via WhatsApp.</p>
+            </div>
+
+            <div class="intel-module module-left" id="step1">
+                <span class="meta-tag">01 // Compliance</span>
+                <h2>Sanctions Check.</h2>
+                <p>Automated daily screening against UN, EU, and US sanctions lists. Instant notification if a supplier becomes a legal liability.</p>
+            </div>
+
+            <div class="intel-module module-right" id="step2">
+                <span class="meta-tag">02 // Logistics</span>
+                <h2>Route Monitoring.</h2>
+                <p>Live tracking of the Strait of Hormuz and regional port data. We map maritime closures directly to your specific vendor network.</p>
+            </div>
+
+            <div class="intel-module module-left" id="step3">
+                <span class="meta-tag">03 // Response</span>
+                <h2>Direct Alerts.</h2>
+                <p>A simple dashboard with live risk scores. Critical changes are pushed to your WhatsApp so your team can pivot instantly.</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="cta-section" id="inquire">
+        <div class="cta-grid">
+            <div>
+                <h2 style="font-size: 3rem; margin-bottom: 25px;">Secure your supply chain.</h2>
+                <p>Replace spreadsheets with real-time intelligence. Get started with Supplens for a flat rate of 8000 AED/month.</p>
+            </div>
+
+            <div class="form-card">
+
+                <!-- THANK YOU MESSAGE - hidden by default -->
+                <div id="thankyou" style="display:none; text-align:center; padding: 40px 0;">
+                    <div style="font-size: 2rem; margin-bottom: 16px;">✓</div>
+                    <p style="color: var(--accent); font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px;">Request Received</p>
+                    <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7;">Thank you. We'll be in touch within 24 hours at the email you provided.</p>
+                </div>
+
+                <!-- FORM -->
+                <form id="inquiryForm" action="https://formspree.io/f/xvzdnqbb" method="POST">
+
+                    <div class="field">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="full name" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Work Email</label>
+                        <input type="email" id="email" name="_replyto" placeholder="yourname@company.com" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="phone">WhatsApp Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+971 50 123 4567" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" name="company" placeholder="Company Name" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="suppliers">How many direct suppliers do you have?</label>
+                        <input type="text" id="suppliers" name="suppliers" placeholder="e.g. 30" required>
+                    </div>
+
+                    <!-- Hidden spam trap - do not remove -->
+                    <input type="text" name="_gotcha" style="display:none">
+
+                    <button type="submit" class="btn">Request Early Access</button>
+
+                    <p style="margin-top: 16px; font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono); text-align: center;">
+                        We onboard 5 new companies per month. GCC companies prioritised.
+                    </p>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 60px 6%; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.7rem; font-family: var(--font-mono);">
+        <div>
+            <p style="color: var(--accent); font-weight: 700; margin-bottom: 6px; font-size: 0.9rem;">SUPPLENS</p>
+            <p>Abu Dhabi, UAE</p>
+        </div>
+        <div style="text-align: right;">
+            <p>© 2026 SUPPLENS</p>
+        </div>
+    </footer>
+
+    <script>
+        const map = document.getElementById('map');
+        const hero = document.getElementById('hero');
+        const s1 = document.getElementById('step1');
+        const s2 = document.getElementById('step2');
+        const s3 = document.getElementById('step3');
+
+        window.addEventListener('scroll', () => {
+            const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = window.scrollY / scrollTotal;
+
+            // --- SMOOTH ZOOM ENGINE ---
+            const currentScale = 1 + (scrollPercent * 0.25);
+            map.style.transform = `scale(${currentScale})`;
+
+            // --- TRIGGER LOGIC ---
+            const p = window.scrollY / (window.innerHeight * 3);
+
+            hero.style.opacity = Math.max(0, 1 - (p * 6));
+            s1.classList.toggle('active', p > 0.18 && p < 0.42);
+            s2.classList.toggle('active', p > 0.42 && p < 0.68);
+            s3.classList.toggle('active', p > 0.68 && p < 0.92);
+        });
+        // FORM SUBMISSION HANDLER
+        const form = document.getElementById('inquiryForm');
+        const thankyou = document.getElementById('thankyou');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = form.querySelector('button[type="submit"]');
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    form.style.display = 'none';
+                    thankyou.style.display = 'block';
+                } else {
+                    btn.textContent = 'Something went wrong. Try again.';
+                    btn.disabled = false;
+                }
+            } catch {
+                btn.textContent = 'Something went wrong. Try again.';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
