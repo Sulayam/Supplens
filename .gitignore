@@ -1,0 +1,223 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Python distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Python virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+pythonenv*
+
+# Python tools & debugging
+.pytest_cache/
+.vscode/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.coverage
+.coverage.*
+.coveragerc
+htmlcov/
+.tox/
+.nox/
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Node.js / npm / yarn (for build tools like webpack, vite, parcel)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs and dependency directories
+dist/
+build/
+out/
+output/
+www/
+temp/
+.tmp/
+*.min.js
+*.min.css
+
+# Frontend / dev server files
+.serve/
+.cache/
+.parcel-cache/
+.vite/
+.next/
+.nuxt/
+.svelte-kit/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+.secrets
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+*.secret
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.user
+*.userosscache
+*.userprefs
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.vsix
+.project
+.classpath
+.settings/
+*.launch
+*.code-workspace
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# Local log files
+*.log
+logs/
+*.log.*
+error.log
+access.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.cache
+*.cached
+
+# Testing artifacts
+/test-reports/
+/junit.xml
+/.jest
+/.nyc_output
+/coverage/
+/test-results/
+
+# Docker / container files (if used)
+.dockerignore
+*.tar
+*.tar.gz
+*.pid
+
+# Python Flask / Django specific
+instance/
+.webassets-cache
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pybuilder/
+celerybeat-schedule
+celerybeat.pid
+*.celerybeat
+*.pid
+flask_session/
+session.db
+db.sqlite3
+migrations/__pycache__/
+*.mo
+*.pot
+
+# Jupyter Notebooks (if used)
+.ipynb_checkpoints
+*.ipynb
+*.ipynb_checkpoints/
+
+# Project-specific local configs
+config.local.*
+settings.local.*
+*.local.conf
+*.local.yaml
+*.local.yml
+
+# Uploads & user content (if your app handles files)
+/media/
+/uploads/
+/staticfiles/
+/static_collected/
+/uploaded_files/
+
+# Backup archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.bz2
+
+# Large generated files (optional – uncomment if needed)
+# *.csv
+# *.json
+# *.xml
+
+test/
